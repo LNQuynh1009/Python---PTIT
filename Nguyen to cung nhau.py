@@ -1,14 +1,13 @@
 import math
-n = int(input())
-a = list(map(int, input().split()[:n]))
-a.sort()
-for i in range(0, n-1):
-    for j in range(i+1, n):
-        if math.gcd(a[i], a[j]) == 1:
-            print(a[i], end=' ')
-            print(a[j])
+n, k = input().split()
+n, k = int(n), int(k)
+a = []
+for i in range(10**(k-1), 10**(k)):
+    if math.gcd(n, i) == 1:
+        a.append(i)
 
-"""
-5
-3 7 9 6 13
-"""
+for i in range(0, len(a)):
+    if i != len(a) - 1 and (i+1)%10 == 0:
+        print(a[i])
+    else: print(a[i], end=" ")
+print()
