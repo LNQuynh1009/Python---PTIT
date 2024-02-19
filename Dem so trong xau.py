@@ -3,8 +3,8 @@ t = int(input())
 
 while t > 0:
     s = input()
-    n = input()
-    print(s.count(n))
+    str = input()
+    print(s.count(str))
     t -= 1
 
 """
