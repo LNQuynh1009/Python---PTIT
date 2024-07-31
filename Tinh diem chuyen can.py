@@ -1,32 +1,39 @@
+class SV:
+    def __init__(self, id, name, lop) -> None:
+        self.id, self.name, self.lop = id, name, lop
 
-class HS:
-    def __init__(self, id, name, lop):
-        self.id = id
-        self.name = name
-        self.lop = lop
-        pass
-    def setcc(self, s):
-        self.cc = 10 - str(s).count('v')*2 - str(s).count('m')
-        self.status = ""
-        if self.cc <= 0:
+    def setCC(self, s):
+        tmp = 10
+        for i in s:
+            if i == "v":
+                tmp -= 2
+            elif i == "m":
+                tmp -= 1
+        if tmp <= 0:
             self.cc = 0
-            self.status = "KDDK"
-    def get(self):
-        return "{} {} {} {} {}".format(self.id, self.name, self.lop, self.cc, self.status)
+            self.note = "KDDK"
+        else:
+            self.cc = tmp
+            self.note = ""
 
-L = []
+    def __str__(self) -> str:
+        return f"{self.id} {self.name} {self.lop} {self.cc} {self.note}"
+
+
 t = int(input())
+a = []
 for i in range(t):
-    L.append(HS(input(), input(), input()))
+    a.append(SV(input(), input(), input()))
 
 for i in range(t):
-    msv, s = input().split()
-    for j in L:
-        if j.id == msv:
-            j.setcc(s)
+    msv, p = input().split()
+    for sv in a:
+        if sv.id == msv:
+            sv.setCC(p)
+            break
 
-for i in L:
-    print(i.get())
+for i in a:
+    print(i)
 
 """
 3

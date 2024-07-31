@@ -1,40 +1,43 @@
-
 class GV:
-    def __init__(self, idx, name, xt, th, cm):
-        self.id = "GV" + "{:02d}".format(idx)
+    def __init__(self, stt, name, khoi, tin, cm) -> None:
+        self.id = "GV" + "{:02d}".format(stt)
         self.name = name
-        if xt[0] == 'A':
-            self.chuyen = "TOAN"
-        elif xt[0] == 'B':
-            self.chuyen = "LY"
-        else: self.chuyen = "HOA"
-        ut = 0
-        if xt[1] == '1':
-            ut = 2.0
-        elif xt[1] == '2':
-            ut = 1.5
-        elif xt[1] == '3':
-            ut = 1.0
-        else: ut = 0.0
-        self.sum = cm + th*2 + ut
-        if self.sum >= 18.0:
+        if khoi[0] == "A":
+            self.mon = "TOAN"
+        elif khoi[0] == "B":
+            self.mon = "LY"
+        else:
+            self.mon = "HOA"
+        tmp = tin * 2 + cm
+        if khoi[1] == "1":
+            tmp += 2.0
+        elif khoi[1] == "2":
+            tmp += 1.5
+        elif khoi[1] == "3":
+            tmp += 1.0
+        else:
+            tmp += 0.0
+        self.diem = tmp
+        if self.diem >= 18:
             self.status = "TRUNG TUYEN"
-        else: self.status = "LOAI"
-    def get(self):
-        return "{} {} {} {:.1f} {}".format(self.id, self.name, self.chuyen, self.sum, self.status)\
+        else:
+            self.status = "LOAI"
+        pass
 
-def cmp(a):
-    return a.sum
+    def __str__(self) -> str:
+        return f"{self.id} {self.name} {self.mon} {self.diem} {self.status}"
+        pass
 
-t = int(input())
-L = []
-for i in range(t):
-    L.append(GV(i+1, input(), input(), float(input()), float(input())))
 
-L.sort(key=cmp, reverse=True)
+if __name__ == "__main__":
+    n = int(input())
+    a = []
+    for i in range(1, n + 1):
+        a.append(GV(i, input(), input(), float(input()), float(input())))
 
-for i in L:
-    print(i.get())
+    a.sort(key=lambda x: -x.diem)
+    for i in a:
+        print(i)
 
 """
 3
